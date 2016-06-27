@@ -46,22 +46,22 @@ need_push () {
   fi
 }
 
-ruby_version() {
-  if (( $+commands[rbenv] ))
+python_version() {
+  if (( $+commands[pyenv] ))
   then
-    echo "$(rbenv version | awk '{print $1}')"
+    echo "$(pyenv version | awk '{print $1}')"
   fi
 
-  if (( $+commands[rvm-prompt] ))
-  then
-    echo "$(rvm-prompt | awk '{print $1}')"
-  fi
+  # if (( $+commands[rvm-prompt] ))
+  # then
+  #   echo "$(rvm-prompt | awk '{print $1}')"
+  # fi
 }
 
-rb_prompt() {
-  if ! [[ -z "$(ruby_version)" ]]
+python_prompt() {
+  if ! [[ -z "$(python_version)" ]]
   then
-    echo "%{$fg_bold[yellow]%}$(ruby_version)%{$reset_color%} "
+    echo "%{$fg_bold[yellow]%}$(python_version)%{$reset_color%} "
   else
     echo ""
   fi
@@ -71,7 +71,7 @@ directory_name() {
   echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)› '
+export PROMPT=$'$(python_prompt)in $(directory_name) $(git_dirty)$(need_push)› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
